@@ -1,6 +1,6 @@
 .form{
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     /* background-image:url('/Register.png'),linear-gradient(45deg,#0E0E0E,#021028); */
     background-image: url('/Register.png'),linear-gradient(45deg,rgb(41, 40, 40));
     background-size: cover;

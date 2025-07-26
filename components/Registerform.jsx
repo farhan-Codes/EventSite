@@ -1,15 +1,16 @@
 import {Button,Field} from "./Tools";
 import styles from "@/styles/Registerform.module.css"
 import { data } from "@/public/Data";
-import { useState } from "react";
+import { useContext } from "react";
+import { EventContext } from "@/public/conext";
 
 let options = data.map((e)=>{
-    return <option value={e.title} className="text-black" name={e.id}>{e.title}</option>
+    return <option value={e.title} className="text-black" key={e.id}>{e.title}</option>
 })
 
 export default function RegisterForm(){
-    let [ImageUrl,setImageUrl] = useState("")
-
+    let {Event,setEvent} = useContext(EventContext);
+    
     function handleSelection(e){
         let item = data.filter((record)=>{
             if(record.title == e.currentTarget.value){
@@ -17,26 +18,26 @@ export default function RegisterForm(){
             }
         })
         if(item.length>0){
-            setImageUrl(item[0]['image']) 
+            setEvent(item)
         }
         else{
-            setImageUrl(null)
+            setEvent([{image:null,amt:null}])
         }
     }
 
     return(
-        <form action="" className={styles.form}>
+        <form action="#" className={styles.form} method="POST">
             <div className={styles.div1}>
                 <Field For="College Name"/>
                 <div className={styles.div2}>
                     <div>
                         <label htmlFor="events">Select Event:</label><br />
                         <select id="events" name="event" onChange={handleSelection}>
-                            <option value="None" className="text-black">None</option>
+                            <option value={(Event[0]['image']!=null)?Event[0]['title']:"None"} className="hidden">{(Event[0]['image']!=null)?Event[0]['title']:"None"}</option>
                             {options}
-                        </select>
+                    </select>
                     </div>
-                    <img src={ImageUrl} alt="No Event Selected" className={styles.img}/>
+                    <img src={Event[0]['image']} alt="No Event Selected" className={styles.img}/>
                 </div>
                 <Field For="Your Name"/>
             </div>
@@ -44,16 +45,16 @@ export default function RegisterForm(){
             <div className={styles.div3}>
                 <Field For="Current Year"/>
                 <Field For="Course"/>
-                <Field For="Address"/>
+                <Field For="Email"/>
                 <Field For="Contact Number"/>
             </div>
             <div className={styles.div4}>
                 <label htmlFor="MOP">Mode of Payement</label>
-                <span className="text-[20px]">&#8377;1400</span>
+                <span className="text-[20px]">&#8377;{(Event[0]['amt']!=null)?Event[0]['amt']:"0"}</span>
                 <label htmlFor="online">Online</label>
                 <input type="radio" name="mode" id="online" value="online"/>
                 <label htmlFor="offline">Offline</label>
-                <input type="radio" name="mode" id="offline" value="offline"/>
+                <input type="radio" name="mode" id="offline" value="offline"/>  
             </div>
             <Button>Submit</Button>
         </form>

@@ -5,10 +5,11 @@ import Wrapper from "@/components/Tabs";
 import Detailsbox from "@/components/DetailsBox";
 import Querybox from "@/components/QueryBox";
 import RegisterForm from "@/components/Registerform";
-import { useState } from "react";
+import { useContext} from "react";
+import { ShowContext } from "@/public/conext";
 
 export default function Home() {
-  let [showRegister,setshowRegister] = useState(false);
+  const {showRegister , setshowRegister} = useContext(ShowContext);
   if (showRegister == true){
     return <RegisterForm />
   }

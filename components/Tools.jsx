@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 export function Button({children,onSmash}){
     return (
     <button className="w-[200px] h-[40px] mt-[20px]" onClick={onSmash}>
@@ -7,7 +9,12 @@ export function Button({children,onSmash}){
 }
 
 export function Field({For,className,value=""}){
+    function handleInput(e){
+        setEntry(e.currentTarget.value)
+    }
+
+    const [Entry,setEntry] = useState("")
     return(
-            <input type="text" placeholder={For} name={For} className={className} value={value}/>
+            <input type="text" placeholder={For} name={For} className={className} value={Entry} onChange={(e)=>handleInput(e)}/>
     )
 }

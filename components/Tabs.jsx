@@ -1,7 +1,10 @@
+import { EventContext, ShowContext } from "@/public/conext"
 import { data } from "@/public/Data"
-console.log(data)
+import { useContext } from "react"
 
-export function Tab({image,children}){
+export function Tab({image,children,amt}){
+    const {setshowRegister} = useContext(ShowContext);
+    const {setEvent}= useContext(EventContext);
     const styles = {
         backgroundImage:`url(${image}),linear-gradient(black)`,
         backgroundRepeat:'no-repeat',
@@ -18,7 +21,11 @@ export function Tab({image,children}){
         textTransform:'upper',
     }
     return (
-        <div style={styles}>
+        <div style={styles} onClick={()=>{
+            setEvent([{title:`${children}`,image:`${image}`,amt:`${amt}`}])
+            setshowRegister(true)
+        }
+    }>
             <span className="bg-black">{children}</span>
         </div>
     )
@@ -27,7 +34,7 @@ export function Tab({image,children}){
 
 export default function Wrapper(){
     let content = data.map((currentData)=>{
-        return <Tab key={currentData.id} image={currentData.image}>{currentData.title}</Tab>
+        return <Tab key={currentData.id} image={currentData.image} amt={currentData.amt}>{currentData.title}</Tab>
     })
     return (
         <div className="flex gap-5 my-10">
