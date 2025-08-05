@@ -8,7 +8,7 @@ export function Button({children,onSmash}){
     )
 }
 
-export function Field({For,className,value=""}){
+export function Field({For,className}){
     function handleInput(e){
         setEntry(e.currentTarget.value)
     }

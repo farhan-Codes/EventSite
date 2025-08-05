@@ -15,7 +15,7 @@ export function ShowContextProvider({children}){
 }
 
 export function EventContextProvider({children}){
-    const [Event,setEvent] = useState([{image:null,amt:null}]);
+    const [Event,setEvent] = useState(false);
     return (
         <EventContext.Provider value={{Event,setEvent}}>
             {children}
