@@ -1,6 +1,6 @@
 import {Button,Field} from "./Tools";
 import styles from "@/styles/Registerform.module.css"
-import { data } from "@/public/Data";
+import { data } from "@/pages/Data";
 import { useContext, useState } from "react";
 import { EventContext } from "@/public/conext";
 import { ShowContext } from "@/public/conext";
@@ -26,7 +26,7 @@ export default function RegisterForm(){
             return (
                 <>
                 <label htmlFor={index} className="text-[15px]">{e.title}</label>
-                <input id={index} type="checkbox" className='mx-[2px]' value={[e.title,e.amt]} onChange={handleSelection} checked={Localcheck}></input>
+                <input id={index} type="checkbox" className='mx-[2px]' value={[e.title,e.amt]} onChange={handleSelection} checked={Localcheck} name='events'></input>
                 <br />
                 </>
             )
@@ -35,7 +35,7 @@ export default function RegisterForm(){
         return(
             <>
             <label htmlFor={index} className="text-[15px]">{e.title}</label>
-            <input id={index} type="checkbox" className='mx-[2px]' value={[e.title,e.amt]} onChange={handleSelection}></input>
+            <input id={index} type="checkbox" className='mx-[2px]' value={[e.title,e.amt]} onChange={handleSelection} name='events'></input>
             <br />
             </>
         )}
@@ -78,10 +78,23 @@ export default function RegisterForm(){
         setshowRegister(false)
     }
 
+    function handleFormSubmission(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const name = formData.get('name')
+        const CollegeDetails = [formData.get('cname'),formData.get('year'),formData.get('course')]
+        const email = formData.get('email')
+        const phone = formData.get('phone')
+        const events = formData.getAll('events').map((e)=>{return e.split(',')[0]})
+        const payment = formData.getAll('mode')[0];
+        const screenShot = (payment=='online'?formData.get('screenshot'):null)
+        console.log(name,CollegeDetails,email,phone,events,payment,screenShot)
+    }
+
     return(
-        <form action="#" className={styles.form} method="POST">
+        <form action="#" className={styles.form} method="POST" onSubmit={handleFormSubmission}>
             <div className={styles.div1}>
-                <Field For="College Name"/>
+                <Field For="College Name" name='cname'/>
                 <div className={styles.div2}>
                     <div>
                         <label htmlFor="events">Select Event:</label><br />
@@ -93,30 +106,30 @@ export default function RegisterForm(){
                             {Images}
                     </div>
                 </div>
-                <Field For="Your Name"/>
+                <Field For="Your Name" name='name'/>
             </div>
             <br />
             <div className={styles.div3}>
-                <Field For="Current Year"/>
-                <Field For="Course"/>
-                <Field For="Email"/>
-                <Field For="Contact Number"/>
+                <Field For="Current Year" name='year'/>
+                <Field For="Course" name='course'/>
+                <Field For="Email" name='email'/>
+                <Field For="Contact Number" name='phone'/>
             </div>
             <div className="flex gap-[100px]">
             <div className={styles.div4}>
                 <label htmlFor="MOP">Mode of Payement</label>
                 <span className="text-[20px]">&#8377;{Amount}</span>
-                <input type="radio" name="mode" id="online" value="online" onChange={showQr}/>
                 <label htmlFor="online">Online</label>
-                <input type="radio" name="mode" id="offline" value="offline" onChange={showQr}/>  
+                <input type="radio" name="mode" id="online" value="online" onChange={showQr}/>
                 <label htmlFor="offline">Offline</label>
+                <input type="radio" name="mode" id="offline" value="offline" onChange={showQr}/>  
             </div>
             {Visibile &&
              <div>
                  <img src="Characters/Igris.jpg" className="w-[120px] h-[120px] inline mt-1 mr-[10px]"></img>
                  <label htmlFor="screenShot" className="text-yellow-200">{'>Share Payment ScreenShot Here<'}</label>
                  <br />
-                 <input id="screenShot" type="file" className="hidden" accept="jpg/png"></input>
+                 <input id="screenShot" type="file" className="opacity-0" accept="jpg/png" name='screenshot' encType={'multipart/form-data'} required></input>
              </div>
             }
             </div>
