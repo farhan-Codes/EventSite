@@ -70,29 +70,44 @@ export default function RegisterForm(){
 
     }
 
-    function showQr(){
-        setVisible(Visibile ? false : true)
-    }
-
     function goBack(){
         setshowRegister(false)
     }
 
-    function handleFormSubmission(e){
+    async function handleFormSubmission(e){
         e.preventDefault();
         const formData = new FormData(e.target);
-        const name = formData.get('name')
-        const CollegeDetails = [formData.get('cname'),formData.get('year'),formData.get('course')]
-        const email = formData.get('email')
-        const phone = formData.get('phone')
-        const events = formData.getAll('events').map((e)=>{return e.split(',')[0]})
-        const payment = formData.getAll('mode')[0];
-        const screenShot = (payment=='online'?formData.get('screenshot'):null)
-        console.log(name,CollegeDetails,email,phone,events,payment,screenShot)
+        // const name = formData.get('name')
+        // formData.append('name',name)
+        // const college_details = [formData.get('cname'),formData.get('year'),formData.get('course')]
+        // formData.append('college_detials',JSON.stringify(college_details))
+        // const email = formData.get('email')
+        // formData.append('email',name)
+        // const phone = formData.get('phone')
+        // formData.append('phone',name)c
+        // const events = formData.getAll('events').map((e)=>{return e.split(',')[0]})
+        // formData.append('evnets',JSON.stringify(events))
+        // const payment = formData.getAll('mode')[0];
+        // formData.append('payment',payment)
+        // const screenShot = (payment=='online'?formData.get('screenshot'):null)
+        // formData.append('screenshot',screenShot);
+        // console.log(screenShot)
+        const res = await fetch('api/register',{
+            method:'POST',
+            body:formData
+        })
+        let err = await res.json();
+        try{
+            console.log('Trying')
+            console.log(err.body.errno)
+        }catch{
+            console.log('catching')
+            console.log(err)
+        }
     }
 
     return(
-        <form action="#" className={styles.form} method="POST" onSubmit={handleFormSubmission}>
+        <form className={styles.form} method="POST" onSubmit={handleFormSubmission}>
             <div className={styles.div1}>
                 <Field For="College Name" name='cname'/>
                 <div className={styles.div2}>
@@ -120,16 +135,16 @@ export default function RegisterForm(){
                 <label htmlFor="MOP">Mode of Payement</label>
                 <span className="text-[20px]">&#8377;{Amount}</span>
                 <label htmlFor="online">Online</label>
-                <input type="radio" name="mode" id="online" value="online" onChange={showQr}/>
+                <input type="radio" name="mode" id="online" value="online" onChange={()=>setVisible(true)}/>
                 <label htmlFor="offline">Offline</label>
-                <input type="radio" name="mode" id="offline" value="offline" onChange={showQr}/>  
+                <input type="radio" name="mode" id="offline" value="offline" onChange={()=>setVisible(false)}/>  
             </div>
             {Visibile &&
              <div>
                  <img src="Characters/Igris.jpg" className="w-[120px] h-[120px] inline mt-1 mr-[10px]"></img>
                  <label htmlFor="screenShot" className="text-yellow-200">{'>Share Payment ScreenShot Here<'}</label>
                  <br />
-                 <input id="screenShot" type="file" className="opacity-0" accept="jpg/png" name='screenshot' encType={'multipart/form-data'} required></input>
+                 <input id="screenShot" type="file" className="opacity-0" accept="image/*" name='screenshot' required></input>
              </div>
             }
             </div>
