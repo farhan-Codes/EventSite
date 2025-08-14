@@ -1,14 +1,14 @@
-import {Button,Field} from "./Tools";
+import {Button,Field,SystemPopup} from "./Tools";
 import styles from "@/styles/Registerform.module.css"
 import { data } from "@/pages/Data";
 import { useContext, useState } from "react";
 import { EventContext } from "@/public/conext";
-import { ShowContext } from "@/public/conext";
-
+import { ShowContext,InfoContext } from "@/public/conext";
 
 export default function RegisterForm(){
     const {Event} = useContext(EventContext);
     const {setshowRegister} = useContext(ShowContext);
+    const {Info,setInfo} = useContext(InfoContext)
     const [Visibile,setVisible] = useState(false);
     const [Localcheck,setLocalcheck] = useState(true);
     const [Amount,setAmount] = useState(Event.amt?Number(Event.amt):0);
@@ -77,37 +77,31 @@ export default function RegisterForm(){
     async function handleFormSubmission(e){
         e.preventDefault();
         const formData = new FormData(e.target);
-        // const name = formData.get('name')
-        // formData.append('name',name)
-        // const college_details = [formData.get('cname'),formData.get('year'),formData.get('course')]
-        // formData.append('college_detials',JSON.stringify(college_details))
-        // const email = formData.get('email')
-        // formData.append('email',name)
-        // const phone = formData.get('phone')
-        // formData.append('phone',name)c
-        // const events = formData.getAll('events').map((e)=>{return e.split(',')[0]})
-        // formData.append('evnets',JSON.stringify(events))
-        // const payment = formData.getAll('mode')[0];
-        // formData.append('payment',payment)
-        // const screenShot = (payment=='online'?formData.get('screenshot'):null)
-        // formData.append('screenshot',screenShot);
-        // console.log(screenShot)
-        const res = await fetch('api/register',{
-            method:'POST',
-            body:formData
-        })
-        let err = await res.json();
-        try{
-            console.log('Trying')
-            console.log(err.body.errno)
-        }catch{
-            console.log('catching')
-            console.log(err)
+        const events = formData.getAll('events');
+        if (events.length === 0) {
+            setInfo({message: "Please select at least one event to proceed.", show: true});
+            return;
+        }
+
+        if(navigator.onLine){
+            const res = await fetch('api/register',{
+                method:'POST',
+                body:formData
+            })
+            let msg = await res.json();
+            setInfo({message:msg.message,show:true})
+            if(res.status == 200){
+                setshowRegister(false)
+            }
+        }
+        else{
+            setInfo({message:"No Internet Connection",show:true})
         }
     }
 
     return(
         <form className={styles.form} method="POST" onSubmit={handleFormSubmission}>
+            { Info.show && <SystemPopup message={Info.message}/> }
             <div className={styles.div1}>
                 <Field For="College Name" name='cname'/>
                 <div className={styles.div2}>
@@ -134,10 +128,11 @@ export default function RegisterForm(){
             <div className={styles.div4}>
                 <label htmlFor="MOP">Mode of Payement</label>
                 <span className="text-[20px]">&#8377;{Amount}</span>
+                <input type="text" hidden value={Amount} name='amount'></input>
                 <label htmlFor="online">Online</label>
-                <input type="radio" name="mode" id="online" value="online" onChange={()=>setVisible(true)}/>
+                <input type="radio" name="mode" id="online" value="online" onChange={()=>setVisible(true)} required/>
                 <label htmlFor="offline">Offline</label>
-                <input type="radio" name="mode" id="offline" value="offline" onChange={()=>setVisible(false)}/>  
+                <input type="radio" name="mode" id="offline" value="offline" onChange={()=>setVisible(false)} required/>  
             </div>
             {Visibile &&
              <div>

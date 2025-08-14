@@ -1,22 +1,24 @@
-import {Button} from "@/components/Tools";
+import {Button,SystemPopup} from "@/components/Tools";
 import Clock from "@/components/Clock";
 import Navpanel from "@/components/Navpanel";
 import Wrapper from "@/components/Tabs";
 import Detailsbox from "@/components/DetailsBox";
 import Querybox from "@/components/QueryBox";
 import RegisterForm from "@/components/Registerform";
-import { useContext} from "react";
-import { ShowContext } from "@/public/conext";
+import { useContext,useEffect} from "react";
+import { ShowContext,InfoContext } from "@/public/conext";
 
 export default function Home() {
   const {showRegister , setshowRegister} = useContext(ShowContext);
+  const {Info,setInfo} = useContext(InfoContext);
   if (showRegister == true){
     return <RegisterForm />
   }
   return (
-  <>  
-    <header>
+  <> 
+    <header> 
       <section id="homeSlide" className="flex justify-center items-center flex-col">
+        {Info.show && <SystemPopup message={Info.message} />}
         <span className="w-[400px] text-center uppercase">
           InterCollege 
           Competition 

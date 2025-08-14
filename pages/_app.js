@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
-import {ShowContextProvider,EventContextProvider} from "@/public/conext";
+import {ShowContextProvider,EventContextProvider, InfoContextProvider} from "@/public/conext";
 
 export default function App({ Component, pageProps }) {
   return (
     <ShowContextProvider>
       <EventContextProvider>
-        <Component {...pageProps} />
+        <InfoContextProvider>
+          <Component {...pageProps} />
+        </InfoContextProvider>
       </EventContextProvider>
     </ShowContextProvider>
   )

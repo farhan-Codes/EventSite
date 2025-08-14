@@ -11,6 +11,12 @@
   --system-text: #ffffff;
   --system-highlight: #00ffff;
   --system-shadow: rgba(60, 217, 252, 0.6);
+  /* --system-bg: rgba(20, 20, 50, 0.9);
+  --system-border: rgba(128, 0, 255, 0.8);
+  --system-glow: rgba(128, 0, 255, 1);
+  --system-text: #ffffff;
+  --system-highlight: #00ffff;
+  --system-shadow: rgba(128, 0, 255, 0.6); */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -90,19 +96,6 @@ section{
   background-blend-mode:overlay;
 }
 
-button{
-  width: fit-content;
-  padding: 0 30px;
-  border:2px solid #BAE1E8;
-  background: #0C2552;
-  color:#7DFCFF;
-  font-size: 20px;
-  text-align: center;
-  border-radius: 5px;
-  line-height:0px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
 
 .verticalList li{
   max-width:400px;
