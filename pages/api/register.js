@@ -75,7 +75,7 @@ async function RegisterPlayer(id,name,college_details,events,email,phone,amount,
             await db.query(queries,[
                 id,name,JSON.stringify(college_details),JSON.stringify(events),email,phone,amount,payment,screenShot
             ]);
-            await SendEmail({type:'register',to:to,subject:'Welcome Player!',id:id,events:events,offline:(payment=='offline')?true:false});
+            await SendEmail({type:'register',to:email,subject:'Welcome Player!',id:id,events:events,offline:(payment=='offline')?true:false});
         }catch(err){
             throw err
         }
