@@ -11,12 +11,6 @@
   --system-text: #ffffff;
   --system-highlight: #00ffff;
   --system-shadow: rgba(60, 217, 252, 0.6);
-  /* --system-bg: rgba(20, 20, 50, 0.9);
-  --system-border: rgba(128, 0, 255, 0.8);
-  --system-glow: rgba(128, 0, 255, 1);
-  --system-text: #ffffff;
-  --system-highlight: #00ffff;
-  --system-shadow: rgba(128, 0, 255, 0.6); */
 }
 
 @media (prefers-color-scheme: dark) {
