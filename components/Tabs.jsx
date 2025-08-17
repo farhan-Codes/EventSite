@@ -1,5 +1,5 @@
-import { EventContext, ShowContext } from "@/public/conext"
-import { data } from "@/pages/Data"
+import { EventContext, ShowContext } from "@/conext"
+import data  from "@/components/Data"
 import { useContext } from "react"
 
 export function Tab({image,children,amt,margin}){

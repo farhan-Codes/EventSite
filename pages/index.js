@@ -6,7 +6,7 @@ import Detailsbox from "@/components/DetailsBox";
 import Querybox from "@/components/QueryBox";
 import RegisterForm from "@/components/Registerform";
 import { useContext,useEffect} from "react";
-import { ShowContext,InfoContext } from "@/public/conext";
+import { ShowContext,InfoContext } from "@/conext";
 
 export default function Home() {
   const {showRegister , setshowRegister} = useContext(ShowContext);

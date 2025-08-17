@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect} from "react"
 import styles from "@/styles/system.module.css"
 import { useContext } from "react"
-import { InfoContext } from "@/public/conext"
+import { InfoContext } from "@/conext"
 export function Button({children,onSmash}){
     return (
     <button className={styles.button} onClick={onSmash}>

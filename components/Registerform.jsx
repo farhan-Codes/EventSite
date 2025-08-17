@@ -1,9 +1,9 @@
 import {Button,Field,SystemPopup} from "./Tools";
 import styles from "@/styles/Registerform.module.css"
-import { data } from "@/pages/Data";
+import data from "@/components/Data";
 import { useContext, useState } from "react";
-import { EventContext } from "@/public/conext";
-import { ShowContext,InfoContext } from "@/public/conext";
+import { EventContext } from "@/conext";
+import { ShowContext,InfoContext } from "@/conext";
 
 export default function RegisterForm(){
     const {Event} = useContext(EventContext);

@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import {ShowContextProvider,EventContextProvider, InfoContextProvider} from "@/public/conext";
+import {ShowContextProvider,EventContextProvider, InfoContextProvider} from "@/conext";
 
 export default function App({ Component, pageProps }) {
   return (
