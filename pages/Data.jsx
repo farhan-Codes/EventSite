@@ -1,4 +1,4 @@
-export let data = [
+export default data = [
         {id:1,image:'/Characters/Igris.jpg',title:'IT Quiz',amt:400},
         {id:2,image:'/Characters/Beru.jpg',title:'Coding & Debbuging',amt:500},
         {id:3,image:'/Characters/Iron.jpg',title:'IT Manager',amt:600},
