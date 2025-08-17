@@ -33,7 +33,7 @@ export default function Home() {
       <section id="aboutSlide" className="px-[70px]">
         <div className="m-[auto] underline"><span className="material-symbols-outlined block relative bottom-1 right-1">info</span>About</div>
         <div className="flex flex-row justify-between">
-        <div className="w-[50%] text-[32px] pl-[10px]"> 
+        <div className="w-[50%]  text-[20px] text-center sm:text-left sm:text-[32px] pl-[10px]"> 
           <i>"Every Hunter Starts Somewhere. This Is Your Gateway To Unlock Unseen Potential And Face Challenges That Test Your Limits."</i>
           <br />
           <br />

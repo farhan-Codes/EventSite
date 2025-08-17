@@ -10,6 +10,7 @@ export default function RegisterForm(){
     const {setshowRegister} = useContext(ShowContext);
     const {Info,setInfo} = useContext(InfoContext)
     const [Visibile,setVisible] = useState(false);
+    const [showSubmit,setshowSubmit] = useState(true)
     const [Localcheck,setLocalcheck] = useState(true);
     const [Amount,setAmount] = useState(Event.amt?Number(Event.amt):0);
     let images_set = data.map((e)=>{
@@ -84,6 +85,7 @@ export default function RegisterForm(){
         }
 
         if(navigator.onLine){
+            setshowSubmit(false);
             const res = await fetch('api/register',{
                 method:'POST',
                 body:formData
@@ -92,6 +94,9 @@ export default function RegisterForm(){
             setInfo({message:msg.message,show:true})
             if(res.status == 200){
                 setshowRegister(false)
+            }
+            if(res.status > 0){
+                setshowSubmit(true)
             }
         }
         else{
@@ -145,7 +150,7 @@ export default function RegisterForm(){
             </div>
             <div className="flex gap-[50px] m-0">
             <Button onSmash={goBack}>Back</Button>
-            <Button>Submit</Button>
+            {showSubmit && <Button>Submit</Button>}
             </div>
         </form>
     )
