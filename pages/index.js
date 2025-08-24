@@ -30,10 +30,10 @@ export default function Home() {
       </section>
     </header>
     <main>
-      <section id="aboutSlide" className="px-[70px]">
-        <div className="m-[auto] underline"><span className="material-symbols-outlined block relative bottom-1 right-1">info</span>About</div>
-        <div className="flex flex-row justify-between">
-        <div className="w-[50%]  text-[20px] text-center sm:text-left sm:text-[32px] pl-[10px]"> 
+      <section id="aboutSlide" className="sm:px-[70px]">
+        <div className="mt-5 underline"><span className="material-symbols-outlined">info</span>About</div>
+        <div className="flex flex-col-reverse items-center my-10 md:my-15 md:flex-row sm:justify-center md:justify-evenly">
+        <div className="text-[18px] text-center md:text-[22px] md:w-[60%] 2xl:text-[28px] 2xl:w-[50%] 2xl:pl-[10px] 2xl:text-left"> 
           <i>"Every Hunter Starts Somewhere. This Is Your Gateway To Unlock Unseen Potential And Face Challenges That Test Your Limits."</i>
           <br />
           <br />
@@ -48,23 +48,23 @@ export default function Home() {
           </p>
           <Button>Download Brochure</Button>
         </div>
-        <div className="flex justify-center items-center w-[50%]">
+        <div className="flex justify-center items-center w-[50%] my-4 2xl:my-0">
           {/* Logo Goes Here */}
-          <img className="w-[50%] h-[50%]" src="/vercel.svg" alt="" />
+          <img className=" w-[auto] h-[auto] 2xl:w-[50%] 2xl:h-[50%]" src="/vercel.svg" alt="" />
         </div>
         </div>
       </section>
-      <section id="eventSlide" className="px-[70px]">
-        <div className="m-[auto] underline"><span className="material-symbols-outlined block relative bottom-1 right-1">shield</span>Events</div>
+      <section id="eventSlide" className="sm:px-[70px]">
+        <div className="mt-5 mx-auto sm:m-[auto] underline"><span className="material-symbols-outlined">shield</span>Events</div>
         <Wrapper></Wrapper>
       </section>
     </main>
     <footer>
-      <section id="contactSlide">
-        <div className="m-[auto] underline my-[40px]"><span className="material-symbols-outlined block relative bottom-1 right-1">phone</span>Contact</div>
-        <div className="flex">
+      <section id="contactSlide" className="sm:px-[70px]">
+        <div className="mx-[auto] mt-5 underline"><span className="material-symbols-outlined">phone</span>Contact</div>
+        <div className="flex flex-col items-center sm:flex-row">
         <Detailsbox />
-        <Querybox />
+        {/* <Querybox /> */}
         </div>
       </section>
     </footer>

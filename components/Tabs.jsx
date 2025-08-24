@@ -1,44 +1,63 @@
 import { EventContext, ShowContext } from "@/conext"
 import data  from "@/components/Data"
-import { useContext } from "react"
+import { useContext,useEffect,useRef} from "react"
 
 export function Tab({image,children,amt,margin}){
     const {setshowRegister} = useContext(ShowContext);
     const {setEvent}= useContext(EventContext);
     const styles = {
         backgroundImage:`url(${image}),linear-gradient(black)`,
-        backgroundRepeat:'no-repeat',
-        backgroundSize:'cover',
-        backgroundPosition:'center',
-        width:'20%',
-        left:`calc(26%*${margin})`,
-        marginBottom:'100px',
-        height:'98%',
-        border:'2px solid white',
-        textAlign:'center',
-        padding:"100px 0",
-        fontSize:'30px',
-        borderRadius:'15px',
-        backgroundBlendMode:'hard-light',
-        textTransform:'upper',
-        position:"absolute"
     }
+
+
     return (
-        <div style={styles} onClick={()=>{
+        <div style={styles} className='tabs' onClick={()=>{
             setEvent({title:`${children}`,image:`${image}`,amt:`${amt}`})
             setshowRegister(true)
-        }
-    }>
+        }}>
             <span className="bg-black">{children}</span>
+            {/* <ul className="text-[15px] my-10" style={{'display':'none'}}>
+                <li>Number of Players: 2</li>
+                <li>Day 1</li>
+                <li>Players should bring there own laptop</li>
+                <li>Entry Fee: {amt}</li>
+            </ul> //Rules */}
         </div>
     )
 }
 
 
 export default function Wrapper(){
+    // let wrapper = useRef(null)
     let content = data.map((currentData,index)=>{
         return <Tab key={currentData.id} image={currentData.image} amt={currentData.amt} margin={index}>{currentData.title}</Tab>
     })
+    {/* 
+    useEffect(() => { // Use For showing Rules in Future
+        const tabs = wrapper.current.querySelectorAll('.tabs');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log('Snap changed to:', entry.target.lastChild);
+          entry.target.lastChild.style.display= 'block';
+        }
+        else{
+            entry.target.lastChild.style.display= 'none';
+        }
+      });
+    },
+    {
+      root: wrapper.current,
+      threshold: 0.8, // Adjust as needed
+    }
+  );
+  tabs.forEach(tab => observer.observe(tab));
+  }, []);
+  return () => observer.disconnect();
+  use: ref={wrapper} at below line
+*/}
+
     return (
         <div className="wrapper mb-10">
             {content}
