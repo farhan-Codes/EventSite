@@ -4,32 +4,36 @@
     background-image: url('/Register.png'),linear-gradient(45deg,rgb(41, 40, 40));
     background-size: cover;
     background-blend-mode:overlay;
-    background-position: center;
+    background-position:50% 0;
     padding: 30px 70px;
     display: flex;
     flex-direction:column;
     align-items: center;
     gap:20px;
     color:cyan;
+    overflow-y: scroll;
 }
 
 .div1{
-    display: grid;
-    grid-template-rows: repeat(2,.1fr);
-    grid-template-columns: repeat(2,.1fr);
+    display:flex;
+    flex-direction: column;
     gap:30px;
     font-size:30px;
 }
 
 .div2{
-    width:655px;
+    width:300px;
+    height: auto;
     border:cyan 2px solid;
-    grid-column: 2;
-    grid-row: 1/span 2;
-    padding: 34px;
+    padding: 20px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column-reverse;
+    justify-content:space-around;
+    align-items: center;
     position: relative;
+    order:1;
+    font-size:26px;
+    border-radius:5px;
 }
 
 
@@ -43,6 +47,75 @@
     text-align: center;
     object-fit: cover;
     font-size: 10px;
+}
+
+.div3{
+    width: fit-content;
+    padding:10px 3px;
+    display:flex;
+    flex-direction:column;
+    gap: 20px;
+    border: cyan 2px solid;
+    border-radius: 5px;
+    margin-bottom:20px;
+}
+
+.div4{
+    display: grid;
+    grid-template-columns: repeat(2,.2fr);
+    grid-template-rows: repeat(3,.2fr);
+    column-gap:100px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.image_div{
+    display: grid;
+    grid-template:repeat(var(--len),auto)/repeat(var(--len),auto);
+    width:200px;
+    height:200px;
+    border:2px solid white;
+}
+
+@media screen and (min-width:640px){
+    .form{
+    width: 100%;
+    height: 100%;
+    background-image: url('/Register.png'),linear-gradient(45deg,rgb(41, 40, 40));
+    background-size: cover;
+    background-blend-mode:overlay;
+    background-position: center;
+    padding: 30px 70px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    gap:20px;
+    color:cyan;
+}
+
+    
+.div1{
+    display: grid;
+    grid-template-rows: repeat(2,.1fr);
+    grid-template-columns: repeat(2,.1fr);
+    gap:30px;
+    font-size:30px;
+}
+
+.div2{
+    width:655px;
+    height: initial;
+    border:cyan 2px solid;
+    grid-column: 2;
+    grid-row: 1/span 2;
+    padding: 11px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: initial;
+    position: relative;
+    border-radius:0px;
 }
 
 .div3{
@@ -74,10 +147,7 @@
     position: absolute;
     top:0;
     right:0;
+    border:none;
 }
 
-
-.select{
-    max-height:300px;
-    overflow-y: scroll;
 }

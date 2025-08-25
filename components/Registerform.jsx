@@ -110,9 +110,9 @@ export default function RegisterForm(){
             <div className={styles.div1}>
                 <Field For="College Name" name='cname'/>
                 <div className={styles.div2}>
-                    <div>
+                    <div className="h-[40%] lg:h-fit">
                         <label htmlFor="events">Select Event:</label><br />
-                        <div className="w-[200px] h-[90%] overflow-y-scroll">
+                        <div className="w-[200px] h-[115px] overflow-y-scroll">
                             {options}
                         </div>
                     </div>
@@ -129,7 +129,7 @@ export default function RegisterForm(){
                 <Field For="Email" name='email'/>
                 <Field For="Contact Number" name='phone'/>
             </div>
-            <div className="flex gap-[100px]">
+            <div className=" w-[300px] flex flex-col gap-[20px] lg:flex-row lg:gap-[100px] lg:w-auto">
             <div className={styles.div4}>
                 <label htmlFor="MOP">Mode of Payement</label>
                 <span className="text-[20px]">&#8377;{Amount}</span>
@@ -140,15 +140,15 @@ export default function RegisterForm(){
                 <input type="radio" name="mode" id="offline" value="offline" onChange={()=>setVisible(false)} required/>  
             </div>
             {Visibile &&
-             <div>
-                 <img src="Characters/Igris.jpg" className="w-[120px] h-[120px] inline mt-1 mr-[10px]"></img>
+             <div className="text-center">
+                 <img src="Characters/Igris.jpg" className="w-[120px] h-[120px] block m-auto sm:m-0 lg:inline lg:mt-1 lg:mr-[10px]"></img>
                  <label htmlFor="screenShot" className="text-yellow-200">{'>Share Payment ScreenShot Here<'}</label>
                  <br />
                  <input id="screenShot" type="file" className="opacity-0" accept="image/*" name='screenshot' required></input>
              </div>
             }
             </div>
-            <div className="flex gap-[50px] m-0">
+            <div className="flex gap-[20px] lg:gap-[50px]">
             <Button onSmash={goBack}>Back</Button>
             {showSubmit && <Button>Submit</Button>}
             </div>
