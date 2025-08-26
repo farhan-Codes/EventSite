@@ -32,7 +32,7 @@ export function SystemPopup({message}) {
     const timer = setTimeout(() => {
       if (popup) {
         popup.style.opacity = "1";
-        popup.style.animation = `${styles.systemPopupVertical} 0.6s ease-out forwards`;
+        popup.style.animation = `systemPopupVertical 0.6s ease-out forwards`;
       }
     }, 600);
 
@@ -46,7 +46,7 @@ export function SystemPopup({message}) {
 
   return (
     <div className={styles.container}>
-      <div ref={popupRef} className={styles.popup}>
+      <div ref={popupRef} className={'popup'}>
         <p className={styles.glitchText}>{message}</p>
       </div>
     </div>
