@@ -1,20 +1,20 @@
 import {Button,Field,SystemPopup} from "./Tools";
 import styles from "@/styles/Registerform.module.css"
 import data from "@/components/Data";
-import { useContext, useState } from "react";
-import { EventContext } from "@/conext";
-import { ShowContext,InfoContext } from "@/conext";
+import {useContext, useState } from "react";
+import { useRouter } from "next/router";
+import {InfoContext} from "@/conext";
 
-export default function RegisterForm(){
-    const {Event} = useContext(EventContext);
-    const {setshowRegister} = useContext(ShowContext);
+export default function RegisterForm({event='IT Quiz'}){
+    const router = useRouter();
+    const Event = (event?data[data.findIndex((element)=>element.title == event)]:0);
     const {Info,setInfo} = useContext(InfoContext)
     const [Visibile,setVisible] = useState(false);
     const [showSubmit,setshowSubmit] = useState(true)
     const [Localcheck,setLocalcheck] = useState(true);
     const [Amount,setAmount] = useState(Event.amt?Number(Event.amt):0);
     let images_set = data.map((e)=>{
-        if (Event && Event.image == e.image){
+        if (event && Event.image == e.image){
             return <img src={e.image} alt="No Event Selected" className={styles.img + ' grayscale-0 opacity-[1]'}/>
         }
         else{
@@ -23,7 +23,7 @@ export default function RegisterForm(){
     })
     const [Images,setImages] = useState(images_set)
     let options = data.map((e,index)=>{
-        if (Event && e.title == Event.title){
+        if (event && e.title == Event.title){
             return (
                 <>
                 <label htmlFor={index} className="text-[15px]">{e.title}</label>
@@ -46,7 +46,7 @@ export default function RegisterForm(){
         let amt=Number((e.currentTarget.value).split(',')[1]);
         let updatedImages = Images.map((record,index)=>{
             let grayscale = (((record.props.className).split(' ')).slice(1))[0]; //Handles The class name string
-            if(Event && Event.title == (e.currentTarget.value.split(','))[0]){
+            if(event && Event.title == (e.currentTarget.value.split(','))[0]){
                 setLocalcheck(!Localcheck)
             }
             if(index == e.currentTarget.id && grayscale == 'grayscale-100'){
@@ -71,10 +71,6 @@ export default function RegisterForm(){
 
     }
 
-    function goBack(){
-        setshowRegister(false)
-    }
-
     async function handleFormSubmission(e){
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -86,14 +82,15 @@ export default function RegisterForm(){
 
         if(navigator.onLine){
             setshowSubmit(false);
-            const res = await fetch('api/register',{
+            setInfo({message:"Registration In Progress\n(Please Wait)",show:true})
+            const res = await fetch('/api/register',{
                 method:'POST',
                 body:formData
             })
             let msg = await res.json();
             setInfo({message:msg.message,show:true})
             if(res.status == 200){
-                setshowRegister(false)
+                router.replace("/")
             }
             if(res.status > 0){
                 setshowSubmit(true)
@@ -133,7 +130,7 @@ export default function RegisterForm(){
             <div className={styles.div4}>
                 <label htmlFor="MOP">Mode of Payement</label>
                 <span className="text-[20px]">&#8377;{Amount}</span>
-                <input type="text" hidden value={Amount} name='amount'></input>
+                <input type="text" hidden readOnly value={Amount} name='amount'></input>
                 <label htmlFor="online">Online</label>
                 <input type="radio" name="mode" id="online" value="online" onChange={()=>setVisible(true)} required/>
                 <label htmlFor="offline">Offline</label>
@@ -141,7 +138,7 @@ export default function RegisterForm(){
             </div>
             {Visibile &&
              <div className="text-center">
-                 <img src="Characters/Igris.jpg" className="w-[120px] h-[120px] block m-auto sm:m-0 lg:inline lg:mt-1 lg:mr-[10px]"></img>
+                 <img src="/Characters/Igris.jpg" className="w-[120px] h-[120px] block m-auto sm:m-0 lg:inline lg:mt-1 lg:mr-[10px]"></img>
                  <label htmlFor="screenShot" className="text-yellow-200">{'>Share Payment ScreenShot Here<'}</label>
                  <br />
                  <input id="screenShot" type="file" className="opacity-0" accept="image/*" name='screenshot' required></input>
@@ -149,7 +146,6 @@ export default function RegisterForm(){
             }
             </div>
             <div className="flex gap-[20px] lg:gap-[50px]">
-            <Button onSmash={goBack}>Back</Button>
             {showSubmit && <Button>Submit</Button>}
             </div>
         </form>

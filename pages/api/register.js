@@ -95,13 +95,19 @@ async function RegisterPlayer(id,name,college_details,events,email,phone,amount,
     }catch(err){
         if(err['http_code']){
             res.status(400).json({message:err.message})
+            return    
         }
-        if(err.code === 'ER_DUP_ENTRY'){
+        else if(err.code === 'ER_DUP_ENTRY'){
             res.status(409).json({message:"Player already registered on the given email!"})
+            return
         }
-        if(err.code === 'ER_USER_LIMIT_REACHED'){
+        else if(err.code === 'ER_USER_LIMIT_REACHED'){
             res.status(409).json({message:"Server Busy please Try again After 1 hour!"})
+            return
         }
-        res.status(500).json({message:err.message})
+        else{
+            res.status(500).json({message:err.message})
+            return
+        }
     }
 }

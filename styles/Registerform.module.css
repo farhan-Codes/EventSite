@@ -93,6 +93,7 @@
     align-items: center;
     gap:20px;
     color:cyan;
+    overflow: hidden;
 }
 
     

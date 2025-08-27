@@ -1,10 +1,9 @@
-import { EventContext, ShowContext } from "@/conext"
 import data  from "@/components/Data"
-import { useContext,useEffect,useRef} from "react"
+import { useRouter } from "next/router"
+// import {useRef, useEffect} from "react"
 
-export function Tab({image,children,amt,margin}){
-    const {setshowRegister} = useContext(ShowContext);
-    const {setEvent}= useContext(EventContext);
+export function Tab({image,children,amt,id}){
+    const router = useRouter();
     const styles = {
         backgroundImage:`url(${image}),linear-gradient(black)`,
     }
@@ -12,8 +11,7 @@ export function Tab({image,children,amt,margin}){
 
     return (
         <div style={styles} className='tabs' onClick={()=>{
-            setEvent({title:`${children}`,image:`${image}`,amt:`${amt}`})
-            setshowRegister(true)
+            router.push(`/register/${data[id].title}`)
         }}>
             <span className="bg-black">{children}</span>
             {/* <ul className="text-[15px] my-10" style={{'display':'none'}}>
@@ -30,7 +28,7 @@ export function Tab({image,children,amt,margin}){
 export default function Wrapper(){
     // let wrapper = useRef(null)
     let content = data.map((currentData,index)=>{
-        return <Tab key={currentData.id} image={currentData.image} amt={currentData.amt} margin={index}>{currentData.title}</Tab>
+        return <Tab key={currentData.id} image={currentData.image} amt={currentData.amt} id={index}>{currentData.title}</Tab>
     })
     {/* 
     useEffect(() => { // Use For showing Rules in Future

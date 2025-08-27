@@ -3,12 +3,8 @@ import {ShowContextProvider,EventContextProvider, InfoContextProvider} from "@/c
 
 export default function App({ Component, pageProps }) {
   return (
-    <ShowContextProvider>
-      <EventContextProvider>
-        <InfoContextProvider>
-          <Component {...pageProps} />
-        </InfoContextProvider>
-      </EventContextProvider>
-    </ShowContextProvider>
+    <InfoContextProvider>
+    <Component {...pageProps} />
+    </InfoContextProvider>
   )
 }

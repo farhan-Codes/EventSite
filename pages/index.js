@@ -3,17 +3,12 @@ import Clock from "@/components/Clock";
 import Navpanel from "@/components/Navpanel";
 import Wrapper from "@/components/Tabs";
 import Detailsbox from "@/components/DetailsBox";
-import Querybox from "@/components/QueryBox";
-import RegisterForm from "@/components/Registerform";
-import { useContext,useEffect} from "react";
-import { ShowContext,InfoContext } from "@/conext";
+import { useContext } from "react";
+import { InfoContext } from "@/conext";
+import Link from "next/link";
 
 export default function Home() {
-  const {showRegister , setshowRegister} = useContext(ShowContext);
   const {Info,setInfo} = useContext(InfoContext);
-  if (showRegister == true){
-    return <RegisterForm />
-  }
   return (
   <> 
     <header> 
@@ -24,7 +19,9 @@ export default function Home() {
           Competition 
           2K25
         </span>
-        <Button onSmash={()=>{setshowRegister(true)}}>Register Now</Button>
+        <Link href={'/register'}>
+          <Button>Register Now</Button>
+        </Link>
         <Clock />
         <Navpanel></Navpanel>
       </section>
@@ -64,7 +61,6 @@ export default function Home() {
         <div className="mx-[auto] mt-5 underline"><span className="material-symbols-outlined">phone</span>Contact</div>
         <div className="flex flex-col items-center sm:flex-row">
         <Detailsbox />
-        {/* <Querybox /> */}
         </div>
       </section>
     </footer>
